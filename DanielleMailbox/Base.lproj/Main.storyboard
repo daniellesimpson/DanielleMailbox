@@ -25,10 +25,6 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="help_label" id="bWz-Ia-zoU">
-                                                <rect key="frame" x="0.0" y="65" width="320" height="37"/>
-                                                <autoresizingMask key="autoresizingMask"/>
-                                            </imageView>
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="feed" id="Xrr-Qb-1NX">
                                                 <rect key="frame" x="0.0" y="136" width="320" height="1202"/>
                                                 <autoresizingMask key="autoresizingMask"/>
@@ -37,12 +33,14 @@
                                                 <rect key="frame" x="0.0" y="135" width="320" height="86"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
-                                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="later_icon" id="is5-Kp-mAT">
-                                                        <rect key="frame" x="293" y="30" width="25" height="25"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
-                                                    </imageView>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="qq1-xZ-8Zk">
+                                                        <rect key="frame" x="279" y="30" width="25" height="25"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <state key="normal" title="Button" image="later_icon"/>
+                                                        <state key="selected" image="list_icon"/>
+                                                    </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="iul-QU-2Aj">
-                                                        <rect key="frame" x="-26" y="30" width="25" height="25"/>
+                                                        <rect key="frame" x="11" y="30" width="25" height="25"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <state key="normal" title="Button" image="archive_icon"/>
                                                         <state key="selected" image="delete_icon"/>
@@ -60,12 +58,16 @@
                                             </view>
                                         </subviews>
                                     </scrollView>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="help_label" id="bWz-Ia-zoU">
+                                        <rect key="frame" x="0.0" y="64" width="320" height="37"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                    </imageView>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="nav" id="HrL-wY-O0p">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </imageView>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="search" id="1po-9p-viP">
-                                        <rect key="frame" x="0.0" y="99" width="320" height="42"/>
+                                        <rect key="frame" x="0.0" y="97" width="320" height="42"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </imageView>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="center" image="reschedule" id="jO7-oy-U0b">
@@ -74,6 +76,14 @@
                                         <gestureRecognizers/>
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="33w-xf-HrQ" appends="YES" id="kNS-gM-07l"/>
+                                        </connections>
+                                    </imageView>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="center" image="list" id="csZ-lk-8KJ">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="ZJu-a5-he7" appends="YES" id="jrG-bs-tfy"/>
                                         </connections>
                                     </imageView>
                                 </subviews>
@@ -88,8 +98,10 @@
                     <connections>
                         <outlet property="archiveIcon" destination="iul-QU-2Aj" id="O7J-U2-k0H"/>
                         <outlet property="contentView" destination="sRa-dk-tKy" id="Ns7-NK-oYq"/>
-                        <outlet property="laterIcon" destination="is5-Kp-mAT" id="Pwq-jl-VxC"/>
+                        <outlet property="laterIcon" destination="qq1-xZ-8Zk" id="rNi-n2-QVp"/>
+                        <outlet property="listOptions" destination="csZ-lk-8KJ" id="8Wk-U8-NeT"/>
                         <outlet property="messageParentView" destination="gHG-bJ-wvl" id="lKR-s0-2st"/>
+                        <outlet property="myFeed" destination="Xrr-Qb-1NX" id="bY8-tZ-q3J"/>
                         <outlet property="myMessage" destination="CcH-Gg-ThI" id="dVa-DQ-ibu"/>
                         <outlet property="rescheduleImage" destination="jO7-oy-U0b" id="f6A-8S-J3G"/>
                         <outlet property="rescheduleTap" destination="33w-xf-HrQ" id="l9o-IP-MMQ"/>
@@ -113,6 +125,11 @@
                         <action selector="tapContentView:" destination="BYZ-38-t0r" id="790-3W-39l"/>
                     </connections>
                 </tapGestureRecognizer>
+                <tapGestureRecognizer id="ZJu-a5-he7">
+                    <connections>
+                        <action selector="dismissList:" destination="BYZ-38-t0r" id="fdj-en-gut"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="162" y="335"/>
         </scene>
@@ -123,6 +140,8 @@
         <image name="feed" width="320" height="1202"/>
         <image name="help_label" width="320" height="37"/>
         <image name="later_icon" width="25" height="25"/>
+        <image name="list" width="320" height="568"/>
+        <image name="list_icon" width="25" height="25"/>
         <image name="menu" width="320" height="568"/>
         <image name="message" width="320" height="86"/>
         <image name="nav" width="320" height="65"/>

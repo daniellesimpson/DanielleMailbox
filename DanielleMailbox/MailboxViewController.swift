@@ -13,7 +13,7 @@ class MailboxViewController: UIViewController {
     @IBOutlet weak var myMessage: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var messageParentView: UIView!
-    @IBOutlet weak var laterIcon: UIImageView!
+    @IBOutlet weak var laterIcon: UIButton!
     @IBOutlet weak var rescheduleImage: UIImageView!
     @IBOutlet weak var archiveIcon: UIButton!
     @IBOutlet var rescheduleTap: UITapGestureRecognizer!
@@ -23,6 +23,9 @@ class MailboxViewController: UIViewController {
     @IBOutlet weak var contentView: UIView!
     var contentViewOpen: Bool!
     
+
+    @IBOutlet weak var listOptions: UIImageView!
+    @IBOutlet weak var myFeed: UIImageView!
     var initialCenter: CGPoint!
     var initialLater: CGPoint!
     var initialArchive: CGPoint!
@@ -31,14 +34,19 @@ class MailboxViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-       scrollView.contentSize = CGSizeMake(320, 1500)
+       scrollView.contentSize = CGSizeMake(320, 1350)
         messageParentView.backgroundColor = UIColorFromRGB(0xE1DEE2)
         edgeGesture = UIScreenEdgePanGestureRecognizer(target: self, action: "onEdgePan:")
         edgeGesture.edges = .Left
         contentView.addGestureRecognizer(edgeGesture)
         laterIcon.alpha = 0
+        archiveIcon.alpha = 0
+        contentViewOpen = false
+        
     }
     
+    //Function that allows me to use Hex Numbers for colors
+    //for instance - white = UIColorFromRGB(0xFFFFFF)
     func UIColorFromRGB(rgbValue: UInt) -> UIColor {
         return UIColor(
             red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
@@ -49,24 +57,7 @@ class MailboxViewController: UIViewController {
     }
     
     @IBAction func didPanMessage(sender: UIPanGestureRecognizer) {
-        print("🍸🍸🍸🍸🍸🍸🍸")
-        
-        
-        print("alpha is \(laterIcon.alpha)")
-        
-        let location = sender.locationInView(messageParentView)
         let translation = sender.translationInView(messageParentView)
-        let velocity = sender.velocityInView(messageParentView)
-//        print("Your location is:\(location)")
-//        print("Your translation is:\(translation)")
-//        print("Your velocity is:\(velocity)")
-        
-        //var tx = convertValue(offset, r1Min: 0, r1Max: 255, r2Min:Grey, r2Max: END_COLOR)
-        var xOffset = CGFloat(translation.x)
-        
-       
-    
-        
         
         if sender.state == UIGestureRecognizerState.Began {
             initialCenter = myMessage.center
@@ -76,33 +67,40 @@ class MailboxViewController: UIViewController {
         }
             
         else if sender.state == UIGestureRecognizerState.Changed {
+            print("my message x is \(myMessage.center.x)")
             myMessage.center = CGPoint(x: initialCenter.x + translation.x, y: initialCenter.y)
-            laterIcon.center = CGPoint(x: initialLater.x + translation.x + 25, y: initialLater.y)
-            archiveIcon.center = CGPoint(x: initialArchive.x + translation.x - 25, y: initialArchive.y)
             
-            
-            print("Your translation is:\(translation.x)")
-            
-            print("translation divided is \(-(translation.x / 100))")
             laterIcon.alpha = -(translation.x / 100)
+            archiveIcon.alpha = (translation.x / 100)
             
-            //changing colors based on myMessage.x
+            
+            //change background color of messageParentView based on myMessage location/translation
             
             if myMessage.center.x < 107 {
-                //right side - later - yellow background
+                
+                //move myMessage to the left, make parent background yellow
                 messageParentView.backgroundColor = UIColorFromRGB(0xFFE30D)
+                
+                //after 107, laterIcon should be 100% and start following myMessage
                 laterIcon.alpha = 1
+                laterIcon.center = CGPoint(x: initialLater.x + translation.x + 55, y: initialLater.y)
                 
             }
             
             else if myMessage.center.x > 207{
+                //move myMessage to the right, make parentbackground green
                 messageParentView.backgroundColor = UIColorFromRGB(0x209624)
+                
+                //after 107, archiveIcon should be 100% and start following myMessage
+                archiveIcon.alpha = 1
+                archiveIcon.center = CGPoint(x: initialArchive.x + translation.x - 50, y: initialArchive.y)
             }
             else {
                 //setting back to grey
-                
                 messageParentView.backgroundColor = UIColorFromRGB(0xE1DEE2)
             }
+            
+            
                 
             //switch archive image to delete icon & bgd color
             if  myMessage.center.x > 400{
@@ -110,38 +108,92 @@ class MailboxViewController: UIViewController {
                 messageParentView.backgroundColor = UIColorFromRGB(0xDB213A)
             }
             
-            //change delete icon back to archive
+            //switch later icon to list icon and bgd color
+            else if myMessage.center.x < -60 {
+                laterIcon.selected = true
+                messageParentView.backgroundColor = UIColorFromRGB(0xD48B17)
+            }
+                
+            //change icons back to originals
             else {
                 archiveIcon.selected = false
+                laterIcon.selected = false
             }
-            
-           
-            
         }
         else if sender.state == UIGestureRecognizerState.Ended {
             
-            //show reschedule image
-            if myMessage.center.x < -85 {
-                rescheduleImage.alpha = 1
+            //show list image
+            if myMessage.center.x < -60 {
+                UIView.animateWithDuration(0.1, animations: {
+                    self.myMessage.center.x = -150
+                    self.laterIcon.center.x = -100
+                    }, completion: { (Bool) -> Void in
+                        self.listOptions.alpha = 1
+                })
+            }
+            //show rescheduled image
+            else if myMessage.center.x < 15 {
+                UIView.animateWithDuration(0.2, animations: {
+                    self.myMessage.center.x = -150
+                    self.laterIcon.center.x = -100
+                }, completion: { (Bool) -> Void in
+                    self.rescheduleImage.alpha = 1
+                })
+                
+            
+            
+            }
+            //delete/archive message
+            else if myMessage.center.x > 250{
+                
+                UIView.animateWithDuration(0.5, animations: {
+                    self.myMessage.center.x = 600
+                    self.archiveIcon.center.x = 550
+                    }, completion: { (Bool) -> Void in
+                        self.myFeed.center.y = (self.myFeed.center.y - 86)
+                        self.messageParentView.hidden = true
+                        
+                })
+                scrollView.contentSize = CGSizeMake(320, 1250)
+                
             }
             
-            myMessage.center = initialCenter
-            laterIcon.center = initialLater
-            archiveIcon.center = initialArchive
+            //set eveything back to where we started.
+            else {
+                UIView.animateWithDuration(0.2, animations: {
+                    self.myMessage.center = self.initialCenter
+                    self.laterIcon.center = self.initialLater
+                    self.archiveIcon.center = self.initialArchive
+                })
+            }
+            
+            
         }
         
             }
     
     @IBAction func dismissReschedule(sender: AnyObject) {
-        rescheduleImage.alpha = 0
+        UIView.animateWithDuration(0.2) {
+            self.myMessage.center = self.initialCenter
+            self.laterIcon.center = self.initialLater
+            self.rescheduleImage.alpha = 0
+            
+        }
+    }
+    
+    @IBAction func dismissList(sender: AnyObject) {
+        UIView.animateWithDuration(0.2) {
+            self.myMessage.center = self.initialCenter
+            self.laterIcon.center = self.initialLater
+            self.listOptions.alpha = 0
+        }
+        
     }
     
     func onEdgePan(sender: UIScreenEdgePanGestureRecognizer){
-        //print("🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲")
+
         let translation = sender.translationInView(contentView)
-        let location = sender.locationInView(contentView)
         let velocity = sender.velocityInView(contentView)
-        var xOffset = CGFloat(translation.x)
         
         
         if sender.state == UIGestureRecognizerState.Began {
@@ -149,33 +201,29 @@ class MailboxViewController: UIViewController {
             
         }
         else if sender.state == UIGestureRecognizerState.Changed {
+            
             contentView.center = CGPoint(x: initialContentCenter.x + translation.x, y: initialContentCenter.y)
-            if velocity.x > 200 {
-                print("Open 🤓🤓🤓🤓🤓🤓")
-            }
-            else {
-                print("ignore 😷😷😷😷😷😷")
-            }
-            print("velocity Before \(velocity)")
         }
         
         else if sender.state == UIGestureRecognizerState.Ended {
             
-            print("velocity after \(velocity)")
-            
             //if fast velocity or open halfway, finish opening
-            if contentView.center.x > 285 || velocity.x > 400 {
-                contentView.center.x = 445
-                contentView.alpha = 0.75
-                contentViewOpen = true
+            if contentView.center.x > 285 || velocity.x > 200 {
+                UIView.animateWithDuration(0.4, animations: {
+                    self.contentView.center.x = 445
+                    self.contentView.alpha = 0.75
+                    self.contentViewOpen = true
+                })
                 
             }
             
             //if not, close menu
             else {
-                print("snap back")
-                contentView.center = initialContentCenter
-                contentViewOpen = false
+                UIView.animateWithDuration(0.4, animations: {
+                self.contentView.center = self.initialContentCenter
+                self.contentViewOpen = false
+                    
+                })
                 
             }
         }
@@ -184,17 +232,16 @@ class MailboxViewController: UIViewController {
     
     @IBAction func tapContentView(sender: AnyObject) {
         if contentViewOpen == true {
-            //contentView.center.x = 0
-            contentView.alpha = 1
-            print("opened")
-            contentView.center = initialContentCenter
+            UIView.animateWithDuration(0.4, animations: { 
+                self.contentView.alpha = 1
+                self.contentView.center = self.initialContentCenter
+            })
 
         }
-        
-        else {
-            print("closed")
-        }
+
     }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
