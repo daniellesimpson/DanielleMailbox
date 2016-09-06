@@ -147,7 +147,7 @@ class MailboxViewController: UIViewController {
             else if myMessage.center.x > 250{
                 
                 UIView.animateWithDuration(0.5, animations: {
-                    self.myMessage.center.x = 600
+                    self.myMessage.center.x = 650
                     self.archiveIcon.center.x = 550
                     }, completion: { (Bool) -> Void in
                         self.myFeed.center.y = (self.myFeed.center.y - 86)
