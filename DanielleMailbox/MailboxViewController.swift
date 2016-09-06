@@ -240,6 +240,21 @@ class MailboxViewController: UIViewController {
 
     }
     
+    override func canBecomeFirstResponder() -> Bool {
+        return true
+    }
+
+    
+    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
+        if motion == .MotionShake {
+            self.myFeed.center.y = (self.myFeed.center.y + 86)
+            self.messageParentView.hidden = false
+            self.myMessage.center = self.initialCenter
+            self.laterIcon.center = self.initialLater
+            self.archiveIcon.center = self.initialArchive
+        }
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
