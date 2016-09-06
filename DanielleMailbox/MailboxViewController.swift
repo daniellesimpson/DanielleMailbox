@@ -69,10 +69,9 @@ class MailboxViewController: UIViewController {
         else if sender.state == UIGestureRecognizerState.Changed {
             print("my message x is \(myMessage.center.x)")
             myMessage.center = CGPoint(x: initialCenter.x + translation.x, y: initialCenter.y)
-            
-            laterIcon.alpha = -(translation.x / 100)
-            archiveIcon.alpha = (translation.x / 100)
-            
+
+            archiveIcon.alpha = convertValue(translation.x, r1Min: 0, r1Max: 107, r2Min: 0, r2Max: 1)
+            laterIcon.alpha = convertValue(-translation.x, r1Min: 0, r1Max: 107, r2Min: 0, r2Max: 1)
             
             //change background color of messageParentView based on myMessage location/translation
             
