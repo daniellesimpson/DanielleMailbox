@@ -33,7 +33,7 @@ Time spent: `8 hours + 2 hours of trying to make that color thing work!`
   - [x] If the menu is being hidden when the user lifts their finger, it should continue hiding.
 - [ ] Tapping on compose should animate to reveal the compose view.
 - [ ] Tapping the segmented control in the title should swipe views in from the left or right.
-- [ ] Shake to undo.
+- [x] Shake to undo. (Adds deleted message back and moves the feed where it began)
 
 #### The following **additional** features are implemented:
 
@@ -49,7 +49,7 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+[Video Walkthrough](http://i.imgur.com/KDxwpyl.gifv)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 

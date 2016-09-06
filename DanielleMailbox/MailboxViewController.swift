@@ -236,7 +236,7 @@ class MailboxViewController: UIViewController {
                 self.contentView.center = self.initialContentCenter
             })
 
-        }
+        } 
 
     }
     
