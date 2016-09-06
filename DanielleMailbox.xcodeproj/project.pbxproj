@@ -14,6 +14,8 @@
 		5E41C7071D7877270015A2CD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E41C7051D7877270015A2CD /* LaunchScreen.storyboard */; };
 		5E41C7121D7877270015A2CD /* DanielleMailboxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E41C7111D7877270015A2CD /* DanielleMailboxTests.swift */; };
 		5E41C71D1D7877270015A2CD /* DanielleMailboxUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E41C71C1D7877270015A2CD /* DanielleMailboxUITests.swift */; };
+		5E41C72B1D7892870015A2CD /* MailboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E41C72A1D7892870015A2CD /* MailboxViewController.swift */; };
+		5E41C72D1D78B2520015A2CD /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E41C72C1D78B2520015A2CD /* Common.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		5E41C7181D7877270015A2CD /* DanielleMailboxUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DanielleMailboxUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E41C71C1D7877270015A2CD /* DanielleMailboxUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanielleMailboxUITests.swift; sourceTree = "<group>"; };
 		5E41C71E1D7877270015A2CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5E41C72A1D7892870015A2CD /* MailboxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MailboxViewController.swift; sourceTree = "<group>"; };
+		5E41C72C1D78B2520015A2CD /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,8 +102,10 @@
 			isa = PBXGroup;
 			children = (
 				5E41C6FC1D7877270015A2CD /* AppDelegate.swift */,
+				5E41C72C1D78B2520015A2CD /* Common.swift */,
 				5E41C6FE1D7877270015A2CD /* ViewController.swift */,
 				5E41C7001D7877270015A2CD /* Main.storyboard */,
+				5E41C72A1D7892870015A2CD /* MailboxViewController.swift */,
 				5E41C7031D7877270015A2CD /* Assets.xcassets */,
 				5E41C7051D7877270015A2CD /* LaunchScreen.storyboard */,
 				5E41C7081D7877270015A2CD /* Info.plist */,
@@ -193,6 +199,7 @@
 				TargetAttributes = {
 					5E41C6F81D7877270015A2CD = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = W2P6M898MN;
 					};
 					5E41C70C1D7877270015A2CD = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -256,8 +263,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E41C72D1D78B2520015A2CD /* Common.swift in Sources */,
 				5E41C6FF1D7877270015A2CD /* ViewController.swift in Sources */,
 				5E41C6FD1D7877270015A2CD /* AppDelegate.swift in Sources */,
+				5E41C72B1D7892870015A2CD /* MailboxViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -399,10 +408,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = DanielleMailbox/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.C1.DanielleMailbox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -410,10 +422,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = DanielleMailbox/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.C1.DanielleMailbox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -482,6 +497,7 @@
 				5E41C7231D7877280015A2CD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5E41C7241D7877280015A2CD /* Build configuration list for PBXNativeTarget "DanielleMailboxTests" */ = {
 			isa = XCConfigurationList;
@@ -490,6 +506,7 @@
 				5E41C7261D7877280015A2CD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5E41C7271D7877280015A2CD /* Build configuration list for PBXNativeTarget "DanielleMailboxUITests" */ = {
 			isa = XCConfigurationList;
@@ -498,6 +515,7 @@
 				5E41C7291D7877280015A2CD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
